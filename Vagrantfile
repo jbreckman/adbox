@@ -10,8 +10,13 @@ Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise32"
 
-  # Forward guest port 80 to host port 8888 and name mapping
-  config.vm.network :forwarded_port, guest: 80, host: 8888
+  config.vm.network :private_network, ip: "192.168.56.102"
 
-  config.vm.synced_folder "webroot/", "/vagrant/webroot/", :owner => "www-data"
+  # Forward guest port 80 to host port 8888 and name mapping
+  #config.vm.network :forwarded_port, guest: 80, host: 8888
+  config.vm.network :forwarded_port, guest: 3306, host: 8890, auto_correct: true
+  config.vm.network :forwarded_port, guest: 5432, host: 5434, auto_correct: true
+  config.vm.hostname = "adengine"
+
+  config.vm.synced_folder "www/", "/var/www/", :owner => "www-data"
 end
