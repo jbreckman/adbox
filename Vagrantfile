@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+  config.vm.box = "lucid32"
 
   config.vm.network :private_network, ip: "192.168.56.102"
 
