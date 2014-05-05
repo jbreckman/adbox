@@ -1,10 +1,65 @@
-<VirtualHost *:80>
-  ServerName app.local
-  DocumentRoot /var/www
-  <Directory /var/www>
-    DirectoryIndex index.php index.html
-    AllowOverride All
-    Order allow,deny
-    Allow from all
-  </Directory>
+NameVirtualHost *:8000
+NameVirtualHost *:8001
+NameVirtualHost *:9000
+
+Listen 8000
+Listen 8001
+Listen 9000
+
+<IfModule mod_ssl.c>
+    Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+    Listen 443
+</IfModule>
+
+<VirtualHost *:8000>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /home/vagrant/nanigans/central/www
+    <Directory />
+        Options  FollowSymLinks
+        Order allow,deny
+        Allow from all
+    </Directory>
+    RedirectMatch 404 /\.svn(/|$)
+    RedirectMatch 404 \.(inc|config|example)$
+    SetEnv SVNROOT /home/vagrant/nanigans
+    SetEnv SVNUSER localqa3
+    SetEnv ISCENTRAL true
+</VirtualHost>
+
+<VirtualHost *:8001>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /home/vagrant/nanigans/portal/www
+    <Directory />
+        Options FollowSymLinks
+        Order allow,deny
+        Allow from all
+    </Directory>
+    RedirectMatch 404 /\.svn(/|$)
+    RedirectMatch 404 \.(inc|config|example)$
+    SetEnv SVNROOT /home/vagrant/nanigans
+    SetEnv SVNUSER localqa3
+</VirtualHost>
+
+<VirtualHost *:9000>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /home/vagrant/nanigans/serverTools/sites/admin
+    <Directory />
+        Options FollowSymLinks MultiViews Indexes
+        AllowOverride All
+        Order allow,deny
+        allow from all
+    </Directory>
+    <Location /server-status>
+        SetHandler server-status
+        Order allow,deny
+        allow from all
+    </Location>
+    RedirectMatch 404 /\.svn(/|$)
+    RedirectMatch 404 \.(inc|config|example)$
+    SetEnv SVNROOT /home/vagrant/nanigans
+    SetEnv SVNUSER localqa3
+    SetEnv ISCENTRAL true
 </VirtualHost>

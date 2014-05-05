@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   #config.vm.network :forwarded_port, guest: 80, host: 8888
   config.vm.network :forwarded_port, guest: 3306, host: 8890, auto_correct: true
   config.vm.network :forwarded_port, guest: 5432, host: 5434, auto_correct: true
-  config.vm.hostname = "adengine"
+  config.vm.hostname = "local.nanigans.com"
 
-  config.vm.synced_folder "www/", "/var/www/", :owner => "www-data"
+  config.vm.synced_folder "../nanigans/", "/home/vagrant/nanigans", :owner => "www-data"
 end
