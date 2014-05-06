@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "lucid32"
 
-  config.vm.network :private_network, ip: "192.168.56.102"
+  config.vm.network :private_network, ip: "192.168.56.101"
 
   # Forward guest port 80 to host port 8888 and name mapping
   #config.vm.network :forwarded_port, guest: 80, host: 8888
@@ -18,5 +18,5 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 5432, host: 5434, auto_correct: true
   config.vm.hostname = "local.nanigans.com"
 
-  config.vm.synced_folder "../nanigans/", "/home/vagrant/nanigans", :owner => "www-data"
+  config.vm.synced_folder "../nanigans", "/home/vagrant/nanigans", :owner => "www-data"
 end
