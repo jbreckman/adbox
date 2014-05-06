@@ -16,7 +16,7 @@ Listen 9000
 
 <VirtualHost *:8000>
     ServerAdmin webmaster@localhost
-    DocumentRoot /home/vagrant/nanigans/central/www
+    DocumentRoot /var/www/central/www
     <Directory />
         Options  FollowSymLinks
         Order allow,deny
@@ -24,14 +24,14 @@ Listen 9000
     </Directory>
     RedirectMatch 404 /\.svn(/|$)
     RedirectMatch 404 \.(inc|config|example)$
-    SetEnv SVNROOT /home/vagrant/nanigans
-    SetEnv SVNUSER localqa3
+    SetEnv SVNROOT /var/www
+    SetEnv SVNUSER adbox
     SetEnv ISCENTRAL true
 </VirtualHost>
 
 <VirtualHost *:8001>
     ServerAdmin webmaster@localhost
-    DocumentRoot /home/vagrant/nanigans/portal/www
+    DocumentRoot /var/www/portal/www
     <Directory />
         Options FollowSymLinks
         Order allow,deny
@@ -39,13 +39,13 @@ Listen 9000
     </Directory>
     RedirectMatch 404 /\.svn(/|$)
     RedirectMatch 404 \.(inc|config|example)$
-    SetEnv SVNROOT /home/vagrant/nanigans
-    SetEnv SVNUSER localqa3
+    SetEnv SVNROOT /var/www
+    SetEnv SVNUSER adbox
 </VirtualHost>
 
 <VirtualHost *:9000>
     ServerAdmin webmaster@localhost
-    DocumentRoot /home/vagrant/nanigans/serverTools/sites/admin
+    DocumentRoot /var/www/serverTools/sites/admin
     <Directory />
         Options FollowSymLinks MultiViews Indexes
         AllowOverride All
@@ -59,7 +59,7 @@ Listen 9000
     </Location>
     RedirectMatch 404 /\.svn(/|$)
     RedirectMatch 404 \.(inc|config|example)$
-    SetEnv SVNROOT /home/vagrant/nanigans
-    SetEnv SVNUSER localqa3
+    SetEnv SVNROOT /var/www
+    SetEnv SVNUSER adbox
     SetEnv ISCENTRAL true
 </VirtualHost>
