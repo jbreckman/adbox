@@ -32,6 +32,7 @@ Listen 9000
 <VirtualHost *:8001>
     ServerAdmin webmaster@localhost
     DocumentRoot /var/www/portal/www
+    ProxyPass /mobilertb http://tinbox.nanigans.com/mobilertb retry=0
     <Directory />
         Options FollowSymLinks
         Order allow,deny
