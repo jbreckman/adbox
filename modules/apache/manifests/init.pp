@@ -3,13 +3,39 @@ class apache {
   # install apache
   package { "apache2":
     ensure => present,
-    require => Exec["apt-get update"]
+    require => [Exec['apt-get update'], Package['php5'], Package['php5-dev'], Package['php5-cli']]
+  }
+
+  package { "libapache2-mod-proxy-html":
+    ensure => present,
+    require => Package["apache2"]
   }
 
   # ensures that mode_rewrite is loaded and modifies the default configuration file
   file { "/etc/apache2/mods-enabled/rewrite.load":
     ensure => link,
     target => "/etc/apache2/mods-available/rewrite.load",
+    require => Package["apache2"]
+  }
+
+  # ensure that mod_proxy is loaded and modifies the default configuration file
+  file { "/etc/apache2/mods-enabled/proxy.load":
+    ensure => link,
+    target => "/etc/apache2/mods-available/proxy.load",
+    require => Package["apache2"]
+  }
+
+  # ensure that mod_proxy is loaded and modifies the default configuration file
+#  file { "/etc/apache2/mods-enabled/proxy.conf":
+#    ensure => link,
+#    target => "/etc/apache2/mods-available/proxy.conf",
+#    require => Package["apache2"]
+#  }
+
+  # ensure that mod_proxy is loaded and modifies the default configuration file
+  file { "/etc/apache2/mods-enabled/proxy_http.load":
+    ensure => link,
+    target => "/etc/apache2/mods-available/proxy_http.load",
     require => Package["apache2"]
   }
 
@@ -34,7 +60,10 @@ class apache {
   file { "/etc/apache2/sites-enabled/vhosts":
     ensure => link,
     target => "/etc/apache2/sites-available/vhosts",
-    require => File["/etc/apache2/sites-available/vhosts"],
+    require => [File["/etc/apache2/sites-available/vhosts"],
+      File["/etc/apache2/mods-enabled/proxy.load"],
+      #File["/etc/apache2/mods-enabled/proxy.conf"],
+      File["/etc/apache2/mods-enabled/proxy_http.load"]],
     notify => Service["apache2"],
   }
 
@@ -44,7 +73,10 @@ class apache {
     require => Package["apache2"],
     subscribe => [
       File["/etc/apache2/mods-enabled/rewrite.load"],
-      File["/etc/apache2/sites-available/vhosts"]
+      File["/etc/apache2/sites-available/vhosts"],
+      File["/etc/apache2/mods-enabled/proxy.load"],
+      #File["/etc/apache2/mods-enabled/proxy.conf"],
+      File["/etc/apache2/mods-enabled/proxy_http.load"]
     ],
   }
 }
