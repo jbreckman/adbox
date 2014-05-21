@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
   # livereload port
   config.vm.network :forwarded_port, guest: 35729, host: 35729, auto_correct: true
   config.vm.hostname = "adbox.nanigans.com"
-  config.vm.synced_folder "../../src/nanigans", "/var/www", :owner => "www-data"
+  config.vm.synced_folder "../../src/nanigans", "/var/www", {:mount_options => ['dmode=777','fmode=777']}
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
