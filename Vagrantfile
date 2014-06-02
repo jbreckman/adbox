@@ -32,5 +32,7 @@ Vagrant.configure("2") do |config|
     #puppet.options = "--verbose --debug"
   end
 
+  config.vm.provision :shell, :path => "scripts/enable_remote_mysql_access.sh"
+
 end
 
