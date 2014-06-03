@@ -20,8 +20,5 @@ include php::pear
 include php::pecl
 include mysql
 include memcached
-include composer
-include nodejs
-include gulpjs
 include svn
 
