@@ -41,4 +41,11 @@ class mysql
           command => "/usr/bin/mysql -uroot -p$mysqlPassword -e 'grant all on `database`.* to `root@localhost`;'",
           require => [Service["mysql"], Exec["create-default-db"]]
   }
+
+  exec
+  {
+      "grant-default-db-host":
+          command => "/usr/bin/mysql -uroot -p$mysqlPassword -e 'grant all on *.* to `root`@`192.168.56.1`;'",
+          require => Service["mysql"]
+  }
 }

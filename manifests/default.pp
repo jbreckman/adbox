@@ -11,6 +11,10 @@ host { 'tinbox.nanigans.com':
   ip => '192.168.56.102',
   host_aliases => 'tinbox',
 }
+host { 'localstats.nanigans.com':
+  ip => '192.168.56.1',
+  host_aliases => 'localstats',
+}
 
 include bootstrap
 include tools
